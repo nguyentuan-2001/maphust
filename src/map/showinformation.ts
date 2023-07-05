@@ -56,7 +56,7 @@ function openList(){
     }
     const closeSearch = document.querySelector<HTMLElement>(".wrapper .div__search");
     if (closeSearch) {
-      closeSearch.style.display = "none";
+      closeSearch.style.opacity = "0";
     }
   });
 }
@@ -73,7 +73,7 @@ function closeList(){
     }
     const closeSearch = document.querySelector<HTMLElement>(".wrapper .div__search");
     if (closeSearch) {
-      closeSearch.style.display = "block";
+      closeSearch.style.opacity = "1";
     }
   });
 }

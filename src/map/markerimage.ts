@@ -131,6 +131,7 @@ export function markerImage(map: maplibregl.Map) {
       map.setCenter(lngLat);
       map.setZoom(18);
 
+      // show address in search input
       const myElement = document.getElementById("search_left") as HTMLInputElement;
       const dataname = clickedMarker.feature.properties.name;
       if (dataname) {
@@ -142,8 +143,6 @@ export function markerImage(map: maplibregl.Map) {
       if (datasearch) {
         element.value = datasearch;
       }
-
-      
       
     }
   }

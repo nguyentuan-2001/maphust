@@ -109,8 +109,27 @@ function findPath(startPoint: number[], endPoint: number[], map: Map) {
             const path = pathFinder.findPath(startp, finish);
 
             const calculatedDistance = distance(startp, finish, { units: 'kilometers' });
+            const calculatedDistanceInMeters = calculatedDistance * 1000;
+            
+            const element = document.getElementById("length_street") as HTMLElement;
+            const datasearch = `Khoảng cách ${calculatedDistanceInMeters.toFixed(2)} m`;
+            if (element) {
+                element.innerText = datasearch;
+            }
 
-console.log('Độ dài quãng đường: ', calculatedDistance, ' km');
+            const averageSpeed = 5; // Tốc độ di chuyển trung bình (kilomet/giờ)
+            const travelTimeInHours = calculatedDistance / averageSpeed; // Thời gian di chuyển (giờ)
+            // Chuyển đổi thời gian di chuyển sang phút và giây
+            const travelTimeInMinutes = travelTimeInHours * 60;
+
+            const elements = document.getElementById("time_street") as HTMLElement;
+            const datasearchs = `Thời gian di chuyển: ${travelTimeInMinutes.toFixed(2)} phút`;
+            console.log(travelTimeInMinutes.toFixed(2));
+
+            if (elements) {
+                elements.innerText = datasearchs;
+            }
+
 
             if (path) {
                 const pathSource = map.getSource('path') as any;

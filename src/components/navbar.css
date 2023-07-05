@@ -510,3 +510,11 @@
     margin-top: 15px;
     margin-left: 40px;
   }
+  .if-length{
+    border-bottom: 1px solid black;
+  }
+  .if-length p{
+    line-height: 30px;
+    margin-top:10px;
+    font-weight: bold;
+  }

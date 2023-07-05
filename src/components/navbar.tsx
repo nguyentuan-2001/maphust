@@ -158,6 +158,11 @@ const Navbar = () => {
                 </div>
               </div>
             </div>
+            
+            <div className='if-length'>
+              <p id='length_street'></p>
+              <p id='time_street'></p>
+            </div>
 
             <div className='input_search'>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">

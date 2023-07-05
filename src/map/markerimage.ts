@@ -3,129 +3,6 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import data from "../hust/data.json";
 import { showLocationDetail } from "./showinformation";
 
-
-// export function markerImage(map: Map) {
-//   const markerImageList = [];
-
-//   for (const feature of data.features) {
-//     const el = document.createElement("div");
-//     el.className = "marker";
-
-//     const img = document.createElement("img");
-//     img.src = feature.properties.image_url_1;
-//     img.className = "marker-image";
-//     img.style.cursor = "pointer";
-//     img.style.width = feature.properties.iconSize[0] + "px";
-//     img.style.height = feature.properties.iconSize[1] + "px";
-//     //img.style.borderRadius = "50px";
-
-//     el.appendChild(img);
-
-//     const marker2 = new maplibregl.Marker(el)
-//       .setLngLat(feature.geometry.coordinates as maplibregl.LngLatLike)
-//       .addTo(map);
-
-//     markerImageList.push({ marker: marker2, feature });
-
-//     document.getElementById("shopping")?.addEventListener("change", function () {
-//         const shoppingCheckbox = this as HTMLInputElement;
-//         if (shoppingCheckbox.checked) {
-//           map.setFilter("vin-name", ["==", ["get", "type"], "shopping"]);
-//         } else {
-//           map.setFilter("vin-name", null);
-//         }
-//         if (feature.properties.type === "shopping") {
-//           el.style.display = "block";
-//         } else if (feature.properties.type === "restaurant") {
-//           el.style.display = "none";
-//         } else if (feature.properties.type === "atraction") {
-//           el.style.display = "none";
-//         }
-//       });
-
-//     document.getElementById("restaurant")?.addEventListener("change", function () {
-//         const restaurantCheckbox = this as HTMLInputElement;
-//         if (restaurantCheckbox.checked) {
-//           map.setFilter("vin-name", ["==", ["get", "type"], "restaurant"]);
-//         } else {
-//           map.setFilter("vin-name", null);
-//         }
-//         if (feature.properties.type === "shopping") {
-//           el.style.display = "none";
-//         } else if (feature.properties.type === "restaurant") {
-//           el.style.display = "block";
-//         } else if (feature.properties.type === "atraction") {
-//           el.style.display = "none";
-//         }
-//       });
-
-//     document.getElementById("atraction")?.addEventListener("change", function () {
-//         const atractionCheckbox = this as HTMLInputElement;
-//         if (atractionCheckbox.checked) {
-//           map.setFilter("vin-name", ["==", ["get", "type"], "atraction"]);
-//         } else {
-//           map.setFilter("vin-name", null);
-//         }
-//         if (feature.properties.type === "atraction") {
-//           el.style.display = "block";
-//         } else if (feature.properties.type === "shopping") {
-//           el.style.display = "none";
-//         } else if (feature.properties.type === "restaurant") {
-//           el.style.display = "none";
-//         }
-//       });
-
-//     document.getElementById("all")?.addEventListener("change", function () {
-//       const allCheckbox = this as HTMLInputElement;
-//       if (allCheckbox.checked) {
-//         map.setFilter("vin-name", null);
-//         el.style.display = "block";
-//       }
-//     });
-//   }
-
-//   const marker = new maplibregl.Marker({
-//     color: "blue",
-//     draggable: true,
-//     anchor: "top",
-//   })
-//     .setLngLat([105.84303947889508,21.007095120316155])
-//     .addTo(map);
-
-//   const markerVisibilityMap: { [key: string]: boolean } = {};
-//   markerImageList.forEach((e) => {
-//     const markerId = e.marker.getElement().id;
-//     markerVisibilityMap[markerId] = true;
-
-//     e.marker.getElement()
-//       .addEventListener("click",createMarkerClickHandler(e.feature, marker, map, markerId ));
-//   });
-//   return marker;
-
-//   function createMarkerClickHandler(feature: any, marker: Marker, map: Map, markerId: string) {
-//     return function () {
-//        // Đảo ngược trạng thái hiển thị của marker
-//     markerVisibilityMap[markerId] = !markerVisibilityMap[markerId];
-
-//     // Thay đổi hiển thị của marker dựa trên trạng thái mới
-//     if (markerVisibilityMap[markerId]) {
-//       marker.getElement().style.display = "block";
-//     } else {
-//       marker.getElement().style.display = "none";
-//     }
-    
-//       // Event click on marker
-//       showLocationDetail(feature);
-//       const lngLat = feature.geometry.coordinates;
-//       marker.setLngLat(lngLat);
-//       map.setCenter(lngLat);
-//       map.setZoom(18);
-      
-      
-//     };
-//   }
-// }
-
 export function markerImage(map: maplibregl.Map) {
   const markerImageList: { marker: maplibregl.Marker; feature: any }[] = [];
   let currentMarker: maplibregl.Marker | null = null;
@@ -147,15 +24,31 @@ export function markerImage(map: maplibregl.Map) {
       .setLngLat(feature.geometry.coordinates as maplibregl.LngLatLike)
       .addTo(map);
 
+    //Show popup name
+    const popup = new maplibregl.Popup({
+      closeButton: false,
+      closeOnClick: false
+      });
+    img.addEventListener("mouseenter", () => {
+      map.getCanvas().style.cursor = "pointer";
+      const description = feature.properties.name;
+      popup.setLngLat(feature.geometry.coordinates as maplibregl.LngLatLike).setHTML(description).addTo(map);
+    });
+    img.addEventListener("mouseleave", () => {
+      map.getCanvas().style.cursor = "";
+      popup.remove();
+    });
+
+
     markerImageList.push({ marker, feature });
     img.addEventListener("click", createMarkerClickHandler);
     document.getElementById("shopping")?.addEventListener("change", function () {
         const shoppingCheckbox = this as HTMLInputElement;
-        if (shoppingCheckbox.checked) {
-          map.setFilter("vin-name", ["==", ["get", "type"], "shopping"]);
-        } else {
-          map.setFilter("vin-name", null);
-        }
+        // if (shoppingCheckbox.checked) {
+        //   map.setFilter("vin-name", ["==", ["get", "type"], "shopping"]);
+        // } else {
+        //   map.setFilter("vin-name", null);
+        // }
         if (feature.properties.type === "shopping") {
           el.style.display = "block";
         } else if (feature.properties.type === "restaurant") {
@@ -167,11 +60,11 @@ export function markerImage(map: maplibregl.Map) {
 
     document.getElementById("restaurant")?.addEventListener("change", function () {
         const restaurantCheckbox = this as HTMLInputElement;
-        if (restaurantCheckbox.checked) {
-          map.setFilter("vin-name", ["==", ["get", "type"], "restaurant"]);
-        } else {
-          map.setFilter("vin-name", null);
-        }
+        // if (restaurantCheckbox.checked) {
+        //   map.setFilter("vin-name", ["==", ["get", "type"], "restaurant"]);
+        // } else {
+        //   map.setFilter("vin-name", null);
+        // }
         if (feature.properties.type === "shopping") {
           el.style.display = "none";
         } else if (feature.properties.type === "restaurant") {
@@ -183,11 +76,11 @@ export function markerImage(map: maplibregl.Map) {
 
     document.getElementById("atraction")?.addEventListener("change", function () {
         const atractionCheckbox = this as HTMLInputElement;
-        if (atractionCheckbox.checked) {
-          map.setFilter("vin-name", ["==", ["get", "type"], "atraction"]);
-        } else {
-          map.setFilter("vin-name", null);
-        }
+        // if (atractionCheckbox.checked) {
+        //   map.setFilter("vin-name", ["==", ["get", "type"], "atraction"]);
+        // } else {
+        //   map.setFilter("vin-name", null);
+        // }
         if (feature.properties.type === "atraction") {
           el.style.display = "block";
         } else if (feature.properties.type === "shopping") {
@@ -200,7 +93,7 @@ export function markerImage(map: maplibregl.Map) {
     document.getElementById("all")?.addEventListener("change", function () {
       const allCheckbox = this as HTMLInputElement;
       if (allCheckbox.checked) {
-        map.setFilter("vin-name", null);
+        //map.setFilter("vin-name", null);
         el.style.display = "block";
       }
     });
@@ -237,15 +130,26 @@ export function markerImage(map: maplibregl.Map) {
       marker.setLngLat(lngLat);
       map.setCenter(lngLat);
       map.setZoom(18);
+
+      const myElement = document.getElementById("search_left") as HTMLInputElement;
+      const dataname = clickedMarker.feature.properties.name;
+      if (dataname) {
+        myElement.value = dataname;
+      }
+
+      const element = document.getElementById("search-input") as HTMLInputElement;
+      const datasearch = clickedMarker.feature.properties.name;
+      if (datasearch) {
+        element.value = datasearch;
+      }
+
+      
+      
     }
   }
 
   return marker;
 }
-
-
-
-
 
 
 export function zoom(map: Map){

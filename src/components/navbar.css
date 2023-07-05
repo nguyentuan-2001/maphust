@@ -9,11 +9,21 @@
     position: absolute;
   }
   .left-panel{
-    position: absolute;
-    width: 100px;
+    position: fixed;
     height: calc(100vh - 2rem);
     top: 1rem;
     z-index: 1;
+    width: 100%;
+    height: 100px;
+    top: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Canh giữa theo chiều ngang */
+    align-items: center;
+    transform: translateY(0%);
+  }
+  .cards{
+    padding: 10px;
   }
   
   .right-panel{
@@ -159,11 +169,15 @@
   
   /* button .left-panel */
   .radio-buttons {
-    margin-top: 10px;
-    position: relative;
-    margin-left: 10px;
-    top:30%;
-    display: block;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    float: inline-end;
+    background-color: #e9f3ff;
+    border-radius: 50px;
+    opacity: 0.95;
+    padding: 10px 5px 0px 20px;
   }
   
   .radio-buttons label {
@@ -202,19 +216,18 @@
   }
   @media (max-width: 991px){
     .left-panel{
-        width: 100%;
-        height: 100px;
-        top: 80%;
-  
+      width: 100%;
+      height: 100px;
+      top: 80%;
     }
-    .radio-buttons {
+    /* .radio-buttons {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
         justify-content: space-around;
         float: inline-end;
         height: 100%;
-    }
+    } */
   }
   /* Style for the zoom in and zoom out buttons */
   .maplibregl-ctrl-group{
@@ -280,16 +293,17 @@
   transform: translateX(-20px);
   }
   .call{
-  margin-bottom: 100px;
+  border-bottom: 1px solid black;
   }
   .call i{
   width: 20px;
   }
   
   #input-tim{
-    margin: 50px 0 0 50px;
-    position: absolute;
+    padding: 30px 0 20px 30px;
+    position: relative;
     z-index: 1;
+    border-bottom: 1px solid black;
   }
   #input-tim input{
     margin: 20px;
@@ -400,4 +414,99 @@
     margin: 10px;
     padding: 5px;
     border-radius: 30px;
+  }
+  .list-left{
+    position: fixed;
+    width: 400px;
+    left: 0rem;
+    z-index: 1;
+    background-color: #e9f3ff;
+    height: 100vh;
+    display: block;
+    transition: 0.5s ease;
+    transform: translateX(-100%);
+    max-height: 100vh;
+    overflow: auto;
+    opacity: 0.98;
+
+  }
+  .close-left{
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: #e9f3ff; /* Màu nền thanh navbar */
+    z-index: 999;
+    width: 100%;
+    height: 60px;
+    border-bottom: 1px solid black;
+  }
+  .close-left span{
+    text-align: center;
+    line-height: 60px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 20px;
+  }
+  #closeLeft{
+    color: #ffffff;
+    background-color: rgba(0,0,0,0.5);
+    height: 26px;
+    padding: 5px;
+    border-radius: 30px;
+    float: right;
+    font-size: 25px;
+    line-height: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-right: 10px;
+  }
+  /* @media (max-width: 1024px){
+    #closeLeft{
+      margin-top: -50px;
+    }
+  } */
+  .close-left img{
+    width: 30px;
+    height: 40px;
+    margin-top: -10px;
+  }
+  #listAddress{
+    list-style-type: none;
+    width: 100%;
+    padding: 0px;
+  }
+  #listAddress li{
+    padding: 8px 0px;
+    cursor: pointer;
+    display: none;
+  }
+  #listAddress li:hover{
+    background-color: #ffaeae65;
+  }
+  .radio-label img{
+    transition: transform 0.2s ease-in-out;
+  }
+  .radio-label img:hover{
+    transform: scale(1.2);
+  }
+  .radio-label span{
+    background-color: #e9f3ff;
+  }
+  .input_search{
+    height: 50px;
+    border-bottom: 1px solid;
+  }
+  .input_search input{
+    width: 80%;
+    border: none;
+    height: 100%;
+    float: right;
+    background-color: #e9f3ff;
+  }
+  .input_search input:focus {
+    outline: none;
+  }
+  .input_search svg{
+    margin-top: 15px;
+    margin-left: 40px;
   }

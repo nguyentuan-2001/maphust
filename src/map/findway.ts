@@ -4,7 +4,9 @@ import PathFinder from "geojson-path-finder";
 import { point } from "@turf/helpers";
 import * as geolib from 'geolib';
 import data from '../hust/data.json';
+import distance from '@turf/distance';
 const roads = require('../hust/bd.geojson');
+
 
 // update option list
 function updateOptions(options: string[], selectElement: HTMLSelectElement) {
@@ -105,6 +107,11 @@ function findPath(startPoint: number[], endPoint: number[], map: Map) {
             const startp = point(nearestPoint);
             const finish = point(nearestPoint1);
             const path = pathFinder.findPath(startp, finish);
+
+            const calculatedDistance = distance(startp, finish, { units: 'kilometers' });
+
+console.log('Độ dài quãng đường: ', calculatedDistance, ' km');
+
             if (path) {
                 const pathSource = map.getSource('path') as any;
                 const coordinates = path.path;
@@ -218,3 +225,4 @@ function findPath(startPoint: number[], endPoint: number[], map: Map) {
         console.error('Lỗi khi tìm đường:', error);
     });
 }
+

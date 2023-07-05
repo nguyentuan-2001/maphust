@@ -6,33 +6,33 @@ import { showLocationDetail } from './showinformation';
 
 export function search(map: Map, marker: Marker){
     const searchInput = document.getElementById('search-input') as HTMLInputElement;
-        searchInput.addEventListener('change', () => {
-        const searchText = searchInput.value;
-        const allAddress = data.features.filter((feature: any) => {
-          return feature.properties.name.toLowerCase().includes(searchText.toLowerCase());
+    searchInput.addEventListener('change', () => {
+      const searchText = searchInput.value;
+      const allAddress = data.features.filter((feature: any) => {
+        return feature.properties.name.toLowerCase().includes(searchText.toLowerCase());
+      });
+
+      function getBounds(features: any[]) {
+        const bounds = new maplibregl.LngLatBounds();
+        features.forEach((feature: any) => {
+          bounds.extend(feature.geometry.coordinates);
         });
-  
-        function getBounds(features: any[]) {
-          const bounds = new maplibregl.LngLatBounds();
-          features.forEach((feature: any) => {
-            bounds.extend(feature.geometry.coordinates);
+        return bounds;
+      }
+
+      if (allAddress.length > 0) {
+        const firstAddress = allAddress[0];
+        const lngLat: [number, number] = firstAddress.geometry.coordinates as [number, number];
+        if (marker) {
+          marker.setLngLat(lngLat);
+          map.setCenter(lngLat);
+          map.setZoom(18);
+          map.fitBounds(getBounds(allAddress), {
+            padding: 50
           });
-          return bounds;
         }
-  
-        if (allAddress.length > 0) {
-          const firstAddress = allAddress[0];
-          const lngLat: [number, number] = firstAddress.geometry.coordinates as [number, number];
-          if (marker) {
-            marker.setLngLat(lngLat);
-            map.setCenter(lngLat);
-            map.setZoom(18);
-            map.fitBounds(getBounds(allAddress), {
-              padding: 50
-            });
-          }
-          showLocationDetail(firstAddress);
-        }
+        showLocationDetail(firstAddress);
+      }
     });
 }
 
@@ -63,4 +63,34 @@ export function updateSuggestions(suggestions: any[], map: Map, marker: Marker) 
     suggestionsList.style.display = 'block';
 }
 
+export function searchLeft(map: Map, marker: Marker){
+  const searchInput = document.getElementById('search_left') as HTMLInputElement;
+  searchInput.addEventListener('change', () => {
+    const searchText = searchInput.value;
+    const allAddress = data.features.filter((feature: any) => {
+      return feature.properties.name.toLowerCase().includes(searchText.toLowerCase());
+    });
 
+    function getBounds(features: any[]) {
+      const bounds = new maplibregl.LngLatBounds();
+      features.forEach((feature: any) => {
+        bounds.extend(feature.geometry.coordinates);
+      });
+      return bounds;
+    }
+
+    if (allAddress.length > 0) {
+      const firstAddress = allAddress[0];
+      const lngLat: [number, number] = firstAddress.geometry.coordinates as [number, number];
+      if (marker) {
+        marker.setLngLat(lngLat);
+        map.setCenter(lngLat);
+        map.setZoom(18);
+        map.fitBounds(getBounds(allAddress), {
+          padding: 50
+        });
+      }
+      showLocationDetail(firstAddress);
+    }
+  });
+}

@@ -5,11 +5,11 @@ import data from './hust/data.json';
 import { createMap } from './map/mapnew';
 import overMap from './map/topographic';
 import { markerImage, zoom } from './map/markerimage';
-import { closeRightPanel } from './map/showinformation';
-import { search, updateSuggestions } from './map/search';
+import { closeRightPanel, showAddress, showList } from './map/showinformation';
+import { search, searchLeft, updateSuggestions } from './map/search';
 import { findway } from './map/findway';
 import { findrandom } from './map/findwayrandom';
-import maplibregl,{Map} from 'maplibre-gl';
+import maplibregl from 'maplibre-gl';
 import { realcoordinates } from './map/realcoordinate';
 
 const App: React.FC = () => {
@@ -20,9 +20,9 @@ const App: React.FC = () => {
     //load map
     overMap(map);
   
+    const marker = markerImage(map);
     // load marker
     map.on('load', () => {
-      const marker = markerImage(map);
       search(map, marker);
       const searchInput = document.getElementById('search-input') as HTMLInputElement;
 
@@ -57,9 +57,10 @@ const App: React.FC = () => {
     map.addControl(nav, 'bottom-right');
 
 
+    showList();
+    showAddress(map, marker);
+    searchLeft(map, marker);
     
-
-
     //delete map if component cancel
     return () => map.remove();
     }, []);

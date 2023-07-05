@@ -33,6 +33,8 @@ export const createMap = (): Map => {
     },   
     center: [105.84449524774622,21.004814640742946],
     zoom: 16,
+    maxZoom: 18.5,
+    minZoom: 15.5,
     hash: 'map',
     bounds: bounds,
     //maxBounds: bounds,

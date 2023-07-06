@@ -12,9 +12,14 @@ const Navbar = () => {
 
       <div id='message'>
         <p>
-          Bạn đang ở ngoài map
+          Bạn đang ở ngoài map!!
         </p>
         <button id='ok'>Ok</button>
+      </div>
+      <div id='if-length'>
+        <p id='length_street'></p>
+        <p id='time_street'></p>
+        <button id='ok_length'>Ok</button>
       </div>
 
       <div className="left-panel" id='left-panel'>
@@ -39,9 +44,9 @@ const Navbar = () => {
             <input
               type="radio"
               name="click"
-              value="atraction"
+              value="library"
               //onChange={(e) => changeImage(e.target)}
-              id="atraction"
+              id="library"
             />
             <span>
               <img
@@ -49,7 +54,7 @@ const Navbar = () => {
                 src="https://platinumaps.blob.core.windows.net/maps/267/category/7625_highlight.png?v=638064414426586250"
                 alt="..."
               />
-              <p>Atractions</p>
+              <p>Thư viện</p>
             </span>
           </label>
 
@@ -57,9 +62,9 @@ const Navbar = () => {
             <input
               type="radio"
               name="click"
-              value="restaurant"
+              value="classroom"
               //onChange={(e) => changeImage(e.target)}
-              id="restaurant"
+              id="classroom"
             />
             <span>
               <img
@@ -67,16 +72,16 @@ const Navbar = () => {
                 src="https://platinumaps.blob.core.windows.net/static/icon/category/restaurant.png?v=638064414342265251"
                 alt="..."
               />
-              <p>Restaurant</p>
+              <p>Phòng học</p>
             </span>
           </label>
           <label className="radio-label">
             <input
               type="radio"
               name="click"
-              value="shopping"
+              value="hall"
               //onChange={(e) => changeImage(e.target)}
-              id="shopping"
+              id="hall"
             />
             <span>
               <img
@@ -84,7 +89,7 @@ const Navbar = () => {
                 src="https://platinumaps.blob.core.windows.net/static/icon/category/shopping.png?v=638064414254106175"
                 alt=""
               />
-              <p>Shopping</p>
+              <p>Hội trường</p>
             </span>
           </label>
           <label className="radio-label">
@@ -158,11 +163,6 @@ const Navbar = () => {
                 </div>
               </div>
             </div>
-            
-            <div className='if-length'>
-              <p id='length_street'></p>
-              <p id='time_street'></p>
-            </div>
 
             <div className='input_search'>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
@@ -180,7 +180,7 @@ const Navbar = () => {
                     name="click"
                     value="atraction"
                     //onChange={(e) => changeImage(e.target)}
-                    id="library"
+                    id="library_item"
                   />
                   <span>
                     <img
@@ -198,7 +198,7 @@ const Navbar = () => {
                     name="click"
                     value="restaurant"
                     //onChange={(e) => changeImage(e.target)}
-                    id="classroom"
+                    id="classroom_item"
                   />
                   <span>
                     <img
@@ -215,7 +215,7 @@ const Navbar = () => {
                     name="click"
                     value="shopping"
                     //onChange={(e) => changeImage(e.target)}
-                    id="hall"
+                    id="hall_item"
                   />
                   <span>
                     <img
@@ -271,13 +271,17 @@ const Navbar = () => {
           />
           <div className="card-body">
             <h5 className="card-title" id="listul"></h5>
+            <div id='navigate'>
+              <img src="https://www.gstatic.com/images/icons/material/system/1x/directions_white_18dp.png" alt="" />
+              <p>Đường đi</p>
+            </div>
             <div className="accordion" id="accordionex"></div>
             <div className="call">
               <hr />
-              <i className="fas fa-map-marker-alt"></i>Đại học bách khoa{" "}
+              <i className="fas fa-map-marker-alt"></i>Đại học bách khoa
               <br />
-              <i className="fas fa-link"></i>{" "}
-              https://maphust.vercel.app/ <br />
+              <i className="fas fa-link"></i>
+              <a href="https://maphust.vercel.app/">https://maphust.vercel.app/</a> <br />
               <i className="fas fa-phone-alt"></i> 0123456789
             </div>
           </div>

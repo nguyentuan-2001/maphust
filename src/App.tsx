@@ -57,9 +57,10 @@ const App: React.FC = () => {
     map.addControl(nav, 'bottom-right');
 
 
-    showList();
+    showList(map);
     showAddress(map, marker);
     searchLeft(map, marker);
+    
     
     //delete map if component cancel
     return () => map.remove();

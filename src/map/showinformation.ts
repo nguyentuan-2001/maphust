@@ -19,25 +19,39 @@ export function showLocationDetail(location: any) {
     if (accordionex) {
       accordionex.innerHTML = desc;
     }
-  
+    
+    navigateRight(location);
     openRightPanel();
   }
+
+  let isListOpen = false;
 export function openRightPanel() {
     const elm = document.querySelector<HTMLElement>(".wrapper .right-panel");
-    if (elm) {
+    if (!isListOpen && elm) {
       elm.style.transform = "translateX(0%)";
     }
+    const close = document.querySelector<HTMLElement>(".wrapper .left-panel");
+    if (close) {
+      close.style.transform = "translateY(200%)";
+      close.style.transition = "0.5s ease";
+    }
   }
+
 export  function closeRightPanel() {
   document.getElementById('closeRight')?.addEventListener('click', function() {
     const elm = document.querySelector<HTMLElement>(".wrapper .right-panel");
     if (elm) {
       elm.style.transform = "translateX(100%)";
     }
+    const close = document.querySelector<HTMLElement>(".wrapper .left-panel");
+    if (close) {
+      close.style.transform = "translateY(0%)";
+      close.style.transition = "0.8s ease";
+    }
   });
 }
 
-export function showList(){
+export function showList(map: Map){
   openList();
   closeList();
 }
@@ -58,6 +72,7 @@ function openList(){
     if (closeSearch) {
       closeSearch.style.opacity = "0";
     }
+    isListOpen = true;
   });
 }
 function closeList(){
@@ -75,10 +90,15 @@ function closeList(){
     if (closeSearch) {
       closeSearch.style.opacity = "1";
     }
+
+    const showIfLength = document.getElementById('if-length') as HTMLElement;
+    showIfLength.style.display = "none";
+
+    isListOpen = false;
   });
 }
 
-
+// hiệu ứng zoom 
 function getBounds(coordinates: maplibregl.LngLatLike) {
   const bounds = new maplibregl.LngLatBounds();
   bounds.extend(coordinates);
@@ -106,10 +126,8 @@ export function showAddress(map: Map, marker: Marker) {
 
     listItems.forEach((item, index) => {
       const datas = data.features[index];
-      const lngLat: [number, number] = datas.geometry.coordinates as [number, number];
       const coordinates:maplibregl.LngLatLike = datas.geometry.coordinates as maplibregl.LngLatLike;
-      
-      
+       
       item.addEventListener("click", () => {
         marker.setLngLat(coordinates);
           map.setCenter(coordinates);
@@ -120,30 +138,30 @@ export function showAddress(map: Map, marker: Marker) {
       });
     });
     
-    document.getElementById("library")?.addEventListener("change", function () {
+    document.getElementById("library_item")?.addEventListener("change", function () {
       listItems.forEach((item, index) => {
         const datas = data.features[index];
-        if (datas.properties.type === "shopping") {
+        if (datas.properties.type === "library") {
           item.style.display = "block";
         } else {
           item.style.display = "none";
         }
       });
     });
-    document.getElementById("classroom")?.addEventListener("change", function () {
+    document.getElementById("classroom_item")?.addEventListener("change", function () {
       listItems.forEach((item, index) => {
         const datas = data.features[index];
-        if (datas.properties.type === "restaurant") {
+        if (datas.properties.type === "classroom") {
           item.style.display = "block";
         } else {
           item.style.display = "none";
         }
       });
     });
-    document.getElementById("hall")?.addEventListener("change", function () {
+    document.getElementById("hall_item")?.addEventListener("change", function () {
       listItems.forEach((item, index) => {
         const datas = data.features[index];
-        if (datas.properties.type === "atraction") {
+        if (datas.properties.type === "hall") {
           item.style.display = "block";
         } else {
           item.style.display = "none";
@@ -158,3 +176,30 @@ export function showAddress(map: Map, marker: Marker) {
   }
 }
 
+function navigateRight(location: any){
+  document.getElementById("navigate")?.addEventListener("click", function () {
+    const startStreetSelect = document.getElementById("start-street") as HTMLSelectElement;
+    startStreetSelect.value = location.properties.name;  
+
+    const elm = document.querySelector<HTMLElement>(".wrapper .right-panel");
+    if (elm) {
+      elm.style.transform = "translateX(100%)";
+    }
+    const elme = document.querySelector<HTMLElement>(".wrapper .list-left");
+    if (elme) {
+      setTimeout(function () {
+        elme.style.transform = "translateX(0%)";
+      }, 250);
+    }
+    const close = document.querySelector<HTMLElement>(".wrapper .left-panel");
+    if (close) {
+      close.style.transform = "translateY(200%)";
+      close.style.transition = "0.5s ease";
+    }
+    const closeSearch = document.querySelector<HTMLElement>(".wrapper .div__search");
+    if (closeSearch) {
+      closeSearch.style.opacity = "0";
+    }
+    isListOpen = true;
+  });
+}

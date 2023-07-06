@@ -53,7 +53,7 @@ export function findway(map: Map){
 
         const center= startPoint as maplibregl.LngLatLike ;
         map.setCenter(center);
-        map.setZoom(16);
+        map.setZoom(16.5);
         findPath(startPoint,endPoint,map);
 
     });
@@ -111,6 +111,13 @@ function findPath(startPoint: number[], endPoint: number[], map: Map) {
             const calculatedDistance = distance(startp, finish, { units: 'kilometers' });
             const calculatedDistanceInMeters = calculatedDistance * 1000;
             
+            const showIfLength = document.getElementById('if-length') as HTMLElement;
+            showIfLength.style.display= 'block';
+            const ok = document.getElementById("ok_length") as HTMLElement;
+            ok.addEventListener("click", function() {
+                showIfLength.style.display = "none";
+            });
+
             const element = document.getElementById("length_street") as HTMLElement;
             const datasearch = `Khoảng cách ${calculatedDistanceInMeters.toFixed(2)} m`;
             if (element) {
@@ -124,12 +131,10 @@ function findPath(startPoint: number[], endPoint: number[], map: Map) {
 
             const elements = document.getElementById("time_street") as HTMLElement;
             const datasearchs = `Thời gian di chuyển: ${travelTimeInMinutes.toFixed(2)} phút`;
-            console.log(travelTimeInMinutes.toFixed(2));
 
             if (elements) {
                 elements.innerText = datasearchs;
             }
-
 
             if (path) {
                 const pathSource = map.getSource('path') as any;
@@ -159,13 +164,24 @@ function findPath(startPoint: number[], endPoint: number[], map: Map) {
                         type: 'line',
                         source: 'path',
                         paint: {
-                        'line-color': 'blue',
+                        'line-color': '#6527BE',
                         'line-opacity': 1,
-                        'line-width': 6,
+                        'line-width': 4,
+                        },
+                    });
+                    map.addLayer({
+                        id: 'path-layer1',
+                        type: 'line',
+                        source: 'path',
+                        paint: {
+                        'line-color': '#9681EB',
+                        'line-opacity': 0.5,
+                        'line-width': 12,
                         },
                     });
                 }
                 map.moveLayer('path-layer', 'home-layer');
+                map.moveLayer('path-layer1', 'home-layer');
                 
                 const coordinateStart = [startPoint,nearestPoint];  
                 const checkStart = map.getSource('dasharray1') as any;
@@ -244,4 +260,3 @@ function findPath(startPoint: number[], endPoint: number[], map: Map) {
         console.error('Lỗi khi tìm đường:', error);
     });
 }
-

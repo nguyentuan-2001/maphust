@@ -30,14 +30,14 @@
     position: fixed;
     width: 400px;
     right: 0rem;
-    top: 5.1rem;
+    top: 5.8rem;
     z-index: 1;
     background-color: rgb(255, 255, 255);
-    height: 100vh;
+    height: 100%;
     display: block;
     transition: 0.5s ease;
     transform: translateX(100%);
-    max-height: 100vh;
+    max-height: 90vh;
     overflow: auto;
   }
   .div__search {
@@ -214,21 +214,7 @@
     background-color: #fd84a4;
     color: white;
   }
-  @media (max-width: 991px){
-    .left-panel{
-      width: 100%;
-      height: 100px;
-      top: 80%;
-    }
-    /* .radio-buttons {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        justify-content: space-around;
-        float: inline-end;
-        height: 100%;
-    } */
-  }
+ 
   /* Style for the zoom in and zoom out buttons */
   .maplibregl-ctrl-group{
   border-radius: 50px !important;
@@ -291,12 +277,6 @@
   margin: 5px 0px;
   cursor: pointer;
   transform: translateX(-20px);
-  }
-  .call{
-  border-bottom: 1px solid black;
-  }
-  .call i{
-  width: 20px;
   }
   
   #input-tim{
@@ -383,13 +363,20 @@
     box-shadow: 0 1px 9px rgba(0,0,0,0.25);
     position: absolute;
     top: 80px;
-    right: 20px;
+    left: 20px;
     max-width: 320px;
     z-index: 1;
     display: none;
   }
   #message p{
     text-align: center;
+    font-weight: bold;
+    animation: mymove 1s infinite;
+  }
+  @keyframes mymove {
+    0%   {opacity: 1;}
+    50%  {opacity: 0;}
+    100% {opacity: 1;}
   }
   #message button{
     text-align: center;
@@ -428,7 +415,6 @@
     max-height: 100vh;
     overflow: auto;
     opacity: 0.98;
-
   }
   .close-left{
     position: sticky;
@@ -510,11 +496,160 @@
     margin-top: 15px;
     margin-left: 40px;
   }
-  .if-length{
-    border-bottom: 1px solid black;
+  .maplibregl-popup-content{
+    padding: 0px !important;
+    border-radius: 10px !important;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0,0,0,.1);
+    pointer-events: auto;
+    position: relative;
+    height: 150px;
   }
-  .if-length p{
+  .maplibregl-popup-content b{
+    text-align: center !important;
+    width: 100%;
+  }
+  .image_popup{
+    width: 100%;
+    height: 100px;
+    margin: 0px;
+    border-radius: 10px 10px 0 0;
+  }
+  .name_popup{
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+
+  
+  #if-length{
+    pointer-events: all;
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 16px;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 1px 9px rgba(0,0,0,0.25);
+    position: absolute;
+    top: 80px;
+    right: 20px;
+    max-width: 320px;
+    z-index: 1;
+    display: none;
+  }
+  #if-length p{
+    text-align: center;
     line-height: 30px;
     margin-top:10px;
     font-weight: bold;
+  }
+  #if-length button{
+    text-align: center;
+    margin-left: 90px;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 38px;
+    width: 100px;
+    height: 38px;
+    padding: 0 16px;
+    border-radius: 19px;
+    background-color: rgb(228, 55, 101);
+    color: rgb(255, 255, 255);
+    border-color: rgb(228, 55, 101);
+  } 
+
+  #navigate{
+    width: 100%;
+    padding: 20px 0 10px 0;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+  }
+  #navigate img{
+    padding: 10px;
+    background-color: #1a73e8;
+    border-radius: 50%;
+    margin-left: 12px;
+    cursor: pointer;
+  }
+  #navigate p{
+    color: #1a73e8;
+  }
+
+  @media (max-width: 480px){
+    .left-panel{
+      width: 100%;
+      height: 100px;
+      top: 85%;
+      margin: auto;
+      /* transform: scaleX(0.7); */
+    }
+    .radio-buttons{
+      width: 95%;
+      height: 80px;
+      opacity: 1;
+    }
+    .radio-buttons span {
+      width: 50px;
+      height: 50px;
+      padding: 0px;
+      margin: 0px;
+      margin-top: -20px;
+    }
+    .radio-buttons label {
+      margin: 0px;
+    }
+    .radio-buttons span p{
+      font-size: 8px;
+      color: black;
+    }
+
+    .maplibregl-ctrl-group{
+      display: none;
+    }
+    .list-left{
+      position: fixed;
+      width: 100%;
+      left: 0rem;
+      z-index: 1;
+      background-color: #e9f3ff;
+      height: 200px;
+      display: block;
+      transition: 0.5s ease;
+      transform: translateX(-100%);
+      max-height: 100vh;
+      overflow: auto;
+      opacity: 0.98;
+    }
+    .input_search{
+      display: none;
+    }
+    .call{
+      display: none;
+    }
+    #if-length{
+      top: 80%;
+    }
+    #if-length p{
+      text-align: center;
+      font-weight: bold;
+      margin: 0px;
+    }
+    #input-tim{
+      padding: 20px 0 20px 30px;
+    }
+    .div__search{
+      right: -100px;
+    }
+    .div__search input:focus ~ .search {
+      right: 20px;
+    }
+    .div__search input:focus {
+      left: -280px;
+    }
+    .right-panel{
+      width: 100%;
+      padding-bottom: 100px;
+    }
+    
   }

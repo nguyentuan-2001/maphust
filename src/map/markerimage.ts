@@ -24,68 +24,89 @@ export function markerImage(map: maplibregl.Map) {
       .setLngLat(feature.geometry.coordinates as maplibregl.LngLatLike)
       .addTo(map);
 
+      const popup = new maplibregl.Popup({
+        closeButton: false,
+        closeOnClick: false
+        });
     //Show popup name
-    const popup = new maplibregl.Popup({
-      closeButton: false,
-      closeOnClick: false
-      });
     img.addEventListener("mouseenter", () => {
-      map.getCanvas().style.cursor = "pointer";
-      const description = feature.properties.name;
-      popup.setLngLat(feature.geometry.coordinates as maplibregl.LngLatLike).setHTML(description).addTo(map);
+      map.getCanvas().style.cursor = "pointer";    
+      // Tạo phần tử container
+      const container = document.createElement("div");
+      container.style.borderRadius = "10px";
+      container.style.width = "200px";
+
+      // Tạo phần tử hình ảnh
+      const image = document.createElement("img");
+      image.src = feature.properties.image_url_2;
+      image.alt = "Image";
+      image.className= "image_popup"
+      container.appendChild(image);
+      
+      // Tạo phần tử mô tả và thiết lập nội dung
+      const name = feature.properties.name;
+      const nameElement = document.createElement("p");
+      nameElement.className= "name_popup"
+      nameElement.textContent = name;
+      container.appendChild(nameElement);
+
+      popup.setLngLat(feature.geometry.coordinates as maplibregl.LngLatLike)
+        .setDOMContent(container)
+        .addTo(map);
     });
+    
     img.addEventListener("mouseleave", () => {
       map.getCanvas().style.cursor = "";
       popup.remove();
     });
-
+    
 
     markerImageList.push({ marker, feature });
     img.addEventListener("click", createMarkerClickHandler);
-    document.getElementById("shopping")?.addEventListener("change", function () {
+    document.getElementById("hall")?.addEventListener("change", function () {
         const shoppingCheckbox = this as HTMLInputElement;
         // if (shoppingCheckbox.checked) {
         //   map.setFilter("vin-name", ["==", ["get", "type"], "shopping"]);
         // } else {
         //   map.setFilter("vin-name", null);
         // }
-        if (feature.properties.type === "shopping") {
+        if (feature.properties.type === "hall") {
           el.style.display = "block";
-        } else if (feature.properties.type === "restaurant") {
+        } else if (feature.properties.type === "library") {
           el.style.display = "none";
-        } else if (feature.properties.type === "atraction") {
+        } else if (feature.properties.type === "classroom") {
           el.style.display = "none";
         }
       });
 
-    document.getElementById("restaurant")?.addEventListener("change", function () {
+    document.getElementById("classroom")?.addEventListener("change", function () {
         const restaurantCheckbox = this as HTMLInputElement;
         // if (restaurantCheckbox.checked) {
         //   map.setFilter("vin-name", ["==", ["get", "type"], "restaurant"]);
         // } else {
         //   map.setFilter("vin-name", null);
         // }
-        if (feature.properties.type === "shopping") {
+        if (feature.properties.type === "library") {
           el.style.display = "none";
-        } else if (feature.properties.type === "restaurant") {
+        } else if (feature.properties.type === "classroom") {
           el.style.display = "block";
-        } else if (feature.properties.type === "atraction") {
+        } else if (feature.properties.type === "hall") {
           el.style.display = "none";
         }
       });
 
-    document.getElementById("atraction")?.addEventListener("change", function () {
+    document.getElementById("library")?.addEventListener("change", function () {
         const atractionCheckbox = this as HTMLInputElement;
         // if (atractionCheckbox.checked) {
         //   map.setFilter("vin-name", ["==", ["get", "type"], "atraction"]);
         // } else {
         //   map.setFilter("vin-name", null);
         // }
-        if (feature.properties.type === "atraction") {
+        if (feature.properties.type === "library") {
           el.style.display = "block";
-        } else if (feature.properties.type === "shopping") {
+        } else if (feature.properties.type === "classroom") {
           el.style.display = "none";
-        } else if (feature.properties.type === "restaurant") {
+        } else if (feature.properties.type === "hall") {
           el.style.display = "none";
         }
       });
@@ -105,7 +126,9 @@ export function markerImage(map: maplibregl.Map) {
   })
   .setLngLat([105.84312136793108, 21.00652348079494])
   .addTo(map);
-    
+
+  let isFirstClick = true;
+
   function createMarkerClickHandler(event: Event) {
     const imgElement = event.target as HTMLImageElement;
     const clickedMarker = markerImageList.find(item => item.marker.getElement().contains(imgElement));
@@ -131,19 +154,26 @@ export function markerImage(map: maplibregl.Map) {
       map.setCenter(lngLat);
       map.setZoom(18);
 
-      // show address in search input
-      const myElement = document.getElementById("search_left") as HTMLInputElement;
-      const dataname = clickedMarker.feature.properties.name;
-      if (dataname) {
-        myElement.value = dataname;
-      }
+      changeValueInput(clickedMarker);
+    }
+  }
 
-      const element = document.getElementById("search-input") as HTMLInputElement;
-      const datasearch = clickedMarker.feature.properties.name;
-      if (datasearch) {
-        element.value = datasearch;
-      }
-      
+  function changeValueInput(clickedMarker: any){
+    // show address in search input
+    const myElement = document.getElementById("search_left") as HTMLInputElement;
+    const dataname = clickedMarker.feature.properties.name;
+    if (dataname) {
+      myElement.value = dataname;
+    }
+
+    if (isFirstClick) {
+      const startStreetSelect = document.getElementById("start-street") as HTMLSelectElement;
+      startStreetSelect.value = clickedMarker.feature.properties.name;
+      isFirstClick = false;
+    } else {
+      const endStreetSelect = document.getElementById("end-street") as HTMLSelectElement;
+      endStreetSelect.value = clickedMarker.feature.properties.name;
+      isFirstClick = true;
     }
   }
 
@@ -161,8 +191,8 @@ export function zoom(map: Map){
       const currentZoom = map.getZoom();
       
       // Lấy kích thước ban đầu của hình ảnh
-      const width = 40;
-      const height = 40;
+      const width = 25;
+      const height = 25;
   
       const imgElements = document.querySelectorAll<HTMLImageElement>(".marker-image");
       let newWidth: number, newHeight: number;

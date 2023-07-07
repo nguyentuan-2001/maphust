@@ -172,7 +172,7 @@ const Navbar = () => {
               <input type="text"  placeholder='Search' id='search_left'/>
             </div>
 
-            <div className="call">               
+            <div className="call" id='calls'>               
               <div className="radio-buttons">
                 <label className="radio-label">
                   <input
@@ -254,21 +254,24 @@ const Navbar = () => {
       <div id="map" style={{ width: '100%', height: '100vh' }} />
 
       <div className="right-panel">
-        <div className="card">
+        <div className="card_right">
           <div className="close">
+            <div className='input_right'>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+              </svg>
+            
+              <input type="text"  placeholder='Search' id='search_right'/>
+            </div>
+
             <i id="closeRight">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-x-lg" viewBox="0 0 16 16">
                 <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
               </svg>
             </i>
+
           </div>
-          <img
-            src=""
-            className="card-img-top"
-            alt="..."
-            height="300px"
-            id="img-address"
-          />
+          <img src="" className="card-img-top" alt="..." height="300px" id="img-address"/>
           <div className="card-body">
             <h5 className="card-title" id="listul"></h5>
             <div id='navigate'>
@@ -276,13 +279,11 @@ const Navbar = () => {
               <p>Đường đi</p>
             </div>
             <div className="accordion" id="accordionex"></div>
-            <div className="call">
-              <hr />
-              <i className="fas fa-map-marker-alt"></i>Đại học bách khoa
-              <br />
-              <i className="fas fa-link"></i>
+            <div className="if_school">
+              Đại học bách khoa
+              <br />              
               <a href="https://maphust.vercel.app/">https://maphust.vercel.app/</a> <br />
-              <i className="fas fa-phone-alt"></i> 0123456789
+              0123456789
             </div>
           </div>
         </div>

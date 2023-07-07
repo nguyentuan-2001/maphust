@@ -35,18 +35,26 @@ export function openRightPanel() {
       close.style.transform = "translateY(200%)";
       close.style.transition = "0.5s ease";
     }
+    const closeSearch = document.querySelector<HTMLElement>(".wrapper .div__search");
+    if (closeSearch) {
+      closeSearch.style.opacity = "0";
+    }
   }
 
 export  function closeRightPanel() {
   document.getElementById('closeRight')?.addEventListener('click', function() {
     const elm = document.querySelector<HTMLElement>(".wrapper .right-panel");
     if (elm) {
-      elm.style.transform = "translateX(100%)";
+      elm.style.transform = "translateX(-100%)";
     }
     const close = document.querySelector<HTMLElement>(".wrapper .left-panel");
     if (close) {
       close.style.transform = "translateY(0%)";
       close.style.transition = "0.8s ease";
+    }
+    const closeSearch = document.querySelector<HTMLElement>(".wrapper .div__search");
+    if (closeSearch) {
+      closeSearch.style.opacity = "1";
     }
   });
 }
@@ -183,7 +191,7 @@ function navigateRight(location: any){
 
     const elm = document.querySelector<HTMLElement>(".wrapper .right-panel");
     if (elm) {
-      elm.style.transform = "translateX(100%)";
+      elm.style.transform = "translateX(-100%)";
     }
     const elme = document.querySelector<HTMLElement>(".wrapper .list-left");
     if (elme) {

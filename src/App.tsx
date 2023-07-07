@@ -6,7 +6,7 @@ import { createMap } from './map/mapnew';
 import overMap from './map/topographic';
 import { markerImage, zoom } from './map/markerimage';
 import { closeRightPanel, showAddress, showList } from './map/showinformation';
-import { search, searchLeft, updateSuggestions } from './map/search';
+import { search, searchLeft, searchRight, updateSuggestions } from './map/search';
 import { findway } from './map/findway';
 import { findrandom } from './map/findwayrandom';
 import maplibregl from 'maplibre-gl';
@@ -33,8 +33,8 @@ const App: React.FC = () => {
         });
         
         updateSuggestions(suggestions, map, marker);
+        
       });
-
       realcoordinates(marker,map);
     });
 
@@ -60,8 +60,25 @@ const App: React.FC = () => {
     showList(map);
     showAddress(map, marker);
     searchLeft(map, marker);
+    searchRight(map, marker);
+
+    // setInterval(logPosition, 5000);
+    // function logPosition() {
+    //   if (navigator.geolocation) {
+    //     navigator.geolocation.getCurrentPosition(showPosition1);
+    //   } else {
+    //     console.log('Geolocation is not supported by this browser.');
+    //   }
+    // }
+  
+    // function showPosition1(position: GeolocationPosition) {
+    //   const lng = position.coords.longitude;
+    //   const lat = position.coords.latitude;
+  
+    //   console.log("Tọa độ hiện tại:", lng, lat);
+    // }
     
-    
+
     //delete map if component cancel
     return () => map.remove();
     }, []);

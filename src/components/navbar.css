@@ -29,15 +29,15 @@
   .right-panel{
     position: fixed;
     width: 400px;
-    right: 0rem;
-    top: 5.8rem;
+    left: 0rem;
+    top: 0.01px;
     z-index: 1;
     background-color: rgb(255, 255, 255);
-    height: 100%;
+    height: 100vh;
     display: block;
     transition: 0.5s ease;
-    transform: translateX(100%);
-    max-height: 90vh;
+    transform: translateX(-100%);
+    max-height: 100vh;
     overflow: auto;
   }
   .div__search {
@@ -151,22 +151,59 @@
     font-weight: bolder;
   }
   .close{
-    position: sticky;
+    position: absolute;
     top: 0;
     width: 100%;
-    background-color: #fff; /* Màu nền thanh navbar */
     z-index: 999;
     width: 100%;
     height: 40px;
+    display: flex;
   }
   .close i{
-    float: left;
+    float: right;
     font-size: 25px;
     margin-left: 15px;
     line-height: 40px;
     cursor: pointer;
   }
-  
+  .input_right{
+    width: 80%;
+    margin: auto;
+    background-color: #fff;
+    margin-top: 10px;
+    border-radius: 30px;
+  }
+  #search_right{
+    width: 70%;
+    height: 40px;
+    border: none;
+    margin-left: 5%;
+  }
+  #search_right:focus {
+    outline: none;
+  }
+  .input_right svg{
+    margin-top: -5px;
+    margin-left: 10px;
+  }
+  #closeRight{
+    color: #000000;
+    height: 26px;
+    line-height: 8px;
+    margin: 10px;
+    padding: 5px;
+    border-radius: 30px;
+    position: absolute;
+    right: 10%;
+    margin-top: 17px;
+  }
+  #closeRight:hover{
+    background-color: rgba(0,0,0,0.2);
+  }
+  .if_school{
+    padding: 10px;
+    border-top: 1px solid;
+  }
   /* button .left-panel */
   .radio-buttons {
     display: flex;
@@ -247,6 +284,10 @@
   }
   #listul{
   text-align: center;
+  padding: 15px;
+  }
+  .accordion{
+    padding: 10px;
   }
   .coordinates {
   background: rgba(0, 0, 0, 0.5);
@@ -393,15 +434,7 @@
     border-color: rgb(228, 55, 101);
   }
 
-  #closeRight{
-    color: #ffffff;
-    background-color: rgba(0,0,0,0.5);
-    height: 26px;
-    line-height: 8px;
-    margin: 10px;
-    padding: 5px;
-    border-radius: 30px;
-  }
+  
   .list-left{
     position: fixed;
     width: 400px;
@@ -425,6 +458,13 @@
     width: 100%;
     height: 60px;
     border-bottom: 1px solid black;
+    display: flex;
+  }
+  .close-left img{
+    max-width: 15%;
+    width: 30px;
+    height: 40px;
+    margin-top: 10px;
   }
   .close-left span{
     text-align: center;
@@ -432,10 +472,10 @@
     font-size: 20px;
     font-weight: bold;
     margin-left: 20px;
+    width: 70%;
   }
   #closeLeft{
-    color: #ffffff;
-    background-color: rgba(0,0,0,0.5);
+    color: #000000;
     height: 26px;
     padding: 5px;
     border-radius: 30px;
@@ -444,18 +484,13 @@
     line-height: 10px;
     cursor: pointer;
     margin-top: 10px;
-    margin-right: 10px;
+    margin-left: 8%;
+    max-width: 15%;
   }
-  /* @media (max-width: 1024px){
-    #closeLeft{
-      margin-top: -50px;
-    }
-  } */
-  .close-left img{
-    width: 30px;
-    height: 40px;
-    margin-top: -10px;
+  #closeLeft:hover{
+    background-color: rgba(0,0,0,0.2);
   }
+
   #listAddress{
     list-style-type: none;
     width: 100%;
@@ -561,28 +596,29 @@
 
   #navigate{
     width: 100%;
-    padding: 20px 0 10px 0;
+    padding: 20px 0 10px 10px;
     border-top: 1px solid;
     border-bottom: 1px solid;
+    cursor: pointer;
   }
   #navigate img{
     padding: 10px;
     background-color: #1a73e8;
     border-radius: 50%;
     margin-left: 12px;
-    cursor: pointer;
   }
   #navigate p{
     color: #1a73e8;
   }
 
-  @media (max-width: 480px){
+
+
+  @media only screen and (min-width: 376px) and (max-width: 480px){
     .left-panel{
       width: 100%;
       height: 100px;
       top: 85%;
       margin: auto;
-      /* transform: scaleX(0.7); */
     }
     .radio-buttons{
       width: 95%;
@@ -600,7 +636,7 @@
       margin: 0px;
     }
     .radio-buttons span p{
-      font-size: 8px;
+      font-size: 7px;
       color: black;
     }
 
@@ -608,18 +644,13 @@
       display: none;
     }
     .list-left{
-      position: fixed;
       width: 100%;
       left: 0rem;
-      z-index: 1;
-      background-color: #e9f3ff;
       height: 200px;
-      display: block;
-      transition: 0.5s ease;
-      transform: translateX(-100%);
-      max-height: 100vh;
-      overflow: auto;
-      opacity: 0.98;
+      padding: 0px;
+    }
+    .cards{
+      height: 200px;
     }
     .input_search{
       display: none;
@@ -629,6 +660,77 @@
     }
     #if-length{
       top: 80%;
+      right: 10%;
+    }
+    #if-length p{
+      text-align: center;
+      font-weight: bold;
+      margin: 0px;
+    }
+    #input-tim{
+      padding: 20px 0 20px 30px;
+    }
+    .right-panel{
+      width: 100%;
+      padding-bottom: 100px;
+    }
+    .div__search{
+      margin: auto;
+      width: 100%;
+      right: 0px;
+    }
+  }
+  
+  @media only screen and (max-width: 375px){
+    .left-panel{
+      width: 100%;
+      height: 100px;
+      top: 85%;
+      margin: auto;
+    }
+    .radio-buttons{
+      width: 95%;
+      height: 80px;
+      opacity: 1;
+      padding: 10px 5px 0px 10px;;
+    }
+    .radio-buttons span {
+      width: 50px;
+      height: 50px;
+      padding: 0px;
+      margin: 0px;
+      margin-top: -20px;
+    }
+    .radio-buttons label {
+      margin: 0px;
+      width: 16%;
+    }
+    .radio-buttons span p{
+      font-size: 7px;
+      color: black;
+    }
+
+    .maplibregl-ctrl-group{
+      display: none;
+    }
+    .list-left{
+      width: 100%;
+      left: 0rem;
+      height: 200px;
+      padding: 0px;
+    }
+    .cards{
+      height: 200px;
+      width: 100%;
+    }
+    .input_search{
+      display: none;
+    }
+    .call{
+      display: none;
+    }
+    #if-length{
+      top: 75%;
     }
     #if-length p{
       text-align: center;
@@ -639,17 +741,125 @@
       padding: 20px 0 20px 30px;
     }
     .div__search{
-      right: -100px;
-    }
-    .div__search input:focus ~ .search {
-      right: 20px;
-    }
-    .div__search input:focus {
-      left: -280px;
+      width: 100%;
+      right: 0px;
+      left: 0px;
     }
     .right-panel{
       width: 100%;
       padding-bottom: 100px;
     }
+    .close-left span{
+      font-size: 18px;
+    }
     
+  }
+  @media only screen and (max-width: 280px){
+    .close-left span{
+      font-size: 12px;
+    }
+    #input-tim{
+      padding: 10px 0px;
+    }
+    #start-street{
+      width: 140px;
+    }
+    #end-street{
+      width: 140px;
+    }
+    #search-street{
+      width: 100px;
+      font-size: 15px;
+    }
+    #search-address{
+      width: 100px;
+      font-size: 15px;
+    }
+    .div__search input:focus {
+      width: 200px;
+      opacity: 1;
+      cursor: text;
+    }
+    .div__search input:focus ~ .search {
+      right: -160px;
+      background: #151515;
+      z-index: 6;
+    }
+    #if-length{
+      right: 0px;
+    }
+    #if-length button{
+      margin-left: 70px;
+    }
+    #search_right{
+      width: 60%;
+    }
+  }
+  @media only screen and (min-width: 480px) and (max-width: 600px){
+    .maplibregl-ctrl-bottom-right {
+      transform: translateY(-150px);
+    }
+    .list-left{
+      width: 45%;
+      left: 0rem;
+    }
+    .close-left span{
+      font-size: 11px;
+      margin-left: 10px;
+    }
+    #input-tim{
+      padding: 10px 0px;
+    }
+    #start-street{
+      width: 120px;
+    }
+    #end-street{
+      width: 120px;
+    }
+    #search-street{
+      width: 80px;
+      font-size: 10px;
+      height: 35px;
+      margin-top: 5px;
+    }
+    #search-address{
+      width: 80px;
+      font-size: 10px;
+      height: 35px;
+    }
+    #search_left{
+      width: 85%;
+    }
+    #calls{
+      width: 100%;
+    }
+    #calls .radio-buttons{
+      width: 100%;
+      margin-top: 10px;
+    }
+    #calls .radio-buttons .radio-label{
+      width: 25%;
+      height: 50px;
+    }
+    #calls .radio-buttons .radio-label p{
+      font-size: 9px;
+    }
+    .right-panel{
+      width: 45%;
+      padding-bottom: 100px;
+    }
+    #if-length{
+      top:0px;
+      padding: 5px;
+      right: 0px;
+      width: 55%;
+    }
+    .input_search svg{
+      margin-left: 10px;
+    }
+  }
+  @media only screen and (min-width: 820px ) and (max-width: 912px ){
+    .left-panel{
+      top: 90%;
+    }
   }

@@ -166,6 +166,12 @@ export function markerImage(map: maplibregl.Map) {
       myElement.value = dataname;
     }
 
+    const elementRight = document.getElementById("search_right") as HTMLInputElement;
+    const datanameRight = clickedMarker.feature.properties.name;
+    if (dataname) {
+      elementRight.value = datanameRight;
+    }
+
     if (isFirstClick) {
       const startStreetSelect = document.getElementById("start-street") as HTMLSelectElement;
       startStreetSelect.value = clickedMarker.feature.properties.name;

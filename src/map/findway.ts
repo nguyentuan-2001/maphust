@@ -180,8 +180,10 @@ function findPath(startPoint: number[], endPoint: number[], map: Map) {
                         },
                     });
                 }
-                map.moveLayer('path-layer', 'home-layer');
-                map.moveLayer('path-layer1', 'home-layer');
+                // map.moveLayer('path-layer', 'home-layer');
+                // map.moveLayer('path-layer1', 'home-layer');
+                map.moveLayer('path-layer', '3d-building');
+                map.moveLayer('path-layer1', '3d-building');
                 
                 const coordinateStart = [startPoint,nearestPoint];  
                 const checkStart = map.getSource('dasharray1') as any;
